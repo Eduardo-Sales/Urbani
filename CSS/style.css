@@ -1,0 +1,79 @@
+/* Configurações da Página */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7f6;
+    color: #333;
+}
+
+/* Cabeçalho e navgação */
+header {
+    background-color: #245c4a;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Conteúdo principal */
+main {
+    padding: 30px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+/* Rodapé */
+footer {
+    background-color: #245c4a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Apresentação principal */
+.apresentacao {
+    text-align: center;
+    padding: 60px 25px;
+}
+
+.apresentacao h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.apresentacao p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* Botão de registro */
+.botao {
+    display: inline-block;
+    background-color:#245c4a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+}
