@@ -77,3 +77,20 @@ footer {
     border-radius: 6px;
     text-decoration: none;
 }
+
+/* Organização da lista */
+.etapas {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+/* Cartões individuais */
+.cartao {
+    flex: 1;
+    padding: 25px;
+    background-color: #e4eee8;
+    border-radius: 8px;
+
+}
