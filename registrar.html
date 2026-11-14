@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar ocorrência | Urbani</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- Cabeçalho e navegação -->
+ <header>
+    <h1>Urbani</h1>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="registrar.html">Registrar Ocorrência</a>
+        <a href="ocorrencias.html">Ver Ocorrências</a>
+    </nav>
+ </header>
+
+ <!--Formulário de registro-->
+
+ <main>
+    <section>
+        <h2>
+            Registrar um problema
+        </h2>
+        <p>
+            Compartilhe um problema  encontrado no seu bairro
+            para que a comunidade possa acompanhar.
+        </p>
+
+        <form id="formOcorrencia">
+<!-- Identificação da ocorrência -->
+            
+            <label for="titulo">Título da ocorrência:</label>
+            <input type ="text" id="titulo" name="titulo" name="titulo" placeholder="Ex.: Buraco na rua" required>
+            <label for="Categoria">Categoria</label>
+            
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecione uma categoria</option>
+                <option value="Buraco nas vias">Buraco nas vias</option>
+                <option value="Iluminação pública">Iluminação pública</option>
+                <option value="Calçadas danificadas">Calçadas danificadas</option>
+                <option value="Descarte irregular">Descarte irregular</option>
+                <option value="Outros">Outros</option> 
+            </select>
+
+<!-- Localização -->
+
+            <label for="localizacao">Localização:</label>
+            <input type="text" id="localizacao" name="localizacao" placeholder="Rua, avenida ou ponto de referência" required>
+
+<!-- Descrição -->
+ 
+            <label for="Descricao">Descrição do problema:</label>
+            <textarea id="descricao" name="descricao" placeholder="Descreva o problema encontrado..." rows="5" required></textarea>
+
+<!--Botão responsável por enviar o formulário-->
+           
+<button type="submit">Registrar ocorrência</button> 
+        </form>
+    </section>
+ </main>
+ 
+ <!-- Rodapé da página -->
+  <footer>
+    <p>Urbani - Participação cidadã por bairros melhores.</p>
+  </footer>
+
+</body>
+</html>

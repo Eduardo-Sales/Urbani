@@ -136,4 +136,50 @@ footer {
     .etapas {
         grid-template-columns: 1fr;
     }
+    #formOcorrencia {
+        width: 100%;
+    }
+    #formOcorrencia input,
+    #formOcorrencia select,
+    #formOcorrencia textarea {
+        font-size: 16px;
+    }
+}
+
+/* Formulário de registro */
+#formOcorrencia {
+    max-width: 700px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Campos de preenchimento */
+#formOcorrencia input,
+#formOcorrencia select,
+#formOcorrencia textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Botão de envio */
+#formOcorrencia button {
+    background-color: #245c4a;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* Efeito ao passar o mouse */
+#formOcorrencia button:hover {
+    background-color: #194535;
 }
