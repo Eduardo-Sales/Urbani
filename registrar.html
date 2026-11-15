@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar ocorrência | Urbani</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <script src="Js/registros.js" defer></script>
 </head>
 <body>
 
@@ -35,8 +36,8 @@
 <!-- Identificação da ocorrência -->
             
             <label for="titulo">Título da ocorrência:</label>
-            <input type ="text" id="titulo" name="titulo" name="titulo" placeholder="Ex.: Buraco na rua" required>
-            <label for="Categoria">Categoria</label>
+            <input type ="text" id="titulo" name="titulo" placeholder="Ex.: Buraco na rua" required>
+            <label for="categoria">Categoria</label>
             
             <select id="categoria" name="categoria" required>
                 <option value="">Selecione uma categoria</option>
@@ -48,13 +49,14 @@
             </select>
 
 <!-- Localização -->
-
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" placeholder="Informe o bairro" required>
             <label for="localizacao">Localização:</label>
             <input type="text" id="localizacao" name="localizacao" placeholder="Rua, avenida ou ponto de referência" required>
 
 <!-- Descrição -->
  
-            <label for="Descricao">Descrição do problema:</label>
+            <label for="descricao">Descrição do problema:</label>
             <textarea id="descricao" name="descricao" placeholder="Descreva o problema encontrado..." rows="5" required></textarea>
 
 <!--Botão responsável por enviar o formulário-->
