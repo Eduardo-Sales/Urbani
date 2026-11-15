@@ -5,6 +5,18 @@
 * Caso não tenha registros ou ocorra algum erro,
 * retorna uma lista vazia. */
 
+function obterAtividades(){
+    try {
+        const dados = localStorage.getItem("atividades");
+
+        return dados ?
+        JSON.parse(dados): [];
+    } catch (erro) {
+        console.error("Erro ao recuperar atividades:", erro);
+        return [];
+    }
+}
+
 function obterOcorrencias() {
     try {
         const dados =
@@ -17,6 +29,63 @@ function obterOcorrencias() {
         return [];
     }
 }
+
+/**
+ * Registra uma nova atvidade no histórico.
+ * Armazena a data, a ação realizada e o resultado.
+ */
+
+function registrarAtividades(acao, resultado) {
+    const atividades = obterAtividades();
+    const novaAtividade = {
+        data: new Date().toLocaleString("pt-BR"), acao: acao, resultado: resultado};
+        atividades.unshift(novaAtividade);
+
+        try {localStorage.setItem("atividades", JSON.stringify(atividades));
+            return true;
+        } catch (erro) {
+            console.error("Erro ao registrar atividade:", erro);
+            return false;
+    }
+}
+
+/**
+ * Lista as atividades registradas no histórico.
+ * Exibe a data, a ação realizada e o resultado. 
+ */
+
+function listarAtividades() {
+    const lista = document.getElementById("listaAtividades");
+    if (!lista) {
+        return;
+    }
+    const atividades = obterAtividades();
+    lista.innerHTML ="";
+
+    if (atividades.length === 0) {
+        lista.textContent = "Nenhuma atividade registrada.";
+        return;
+    }
+
+
+atividades.forEach(function(atividade) {
+    
+    const cartao = document.createElement("article");
+   
+    const data = document.createElement("p");
+    data.textContent = "Data: " + atividade.data;
+    
+    const acao = document.createElement("p");
+    acao.textContent = "Ação: " + atividade.acao;
+
+    const resultado = document.createElement("p");
+    resultado.textContent = "Resultado: " + atividade.resultado;
+
+    cartao.append(data, acao, resultado);
+    lista.appendChild(cartao);
+ });
+}
+
 
 /* Salva a lista de ocorrências no localStorage.
 * Recebe uma lista de ocorrências e converte os dados
@@ -151,11 +220,18 @@ if (idEdicao) {
 
 // Verifica se os dados foram salvos corretamente
 if (salvou) {
-
     if (idEdicao) {
+        registrarAtividades(
+            "Edição de ocorrência",
+            "Ocorrência atualizada com sucesso");
+
         alert("Ocorrência atualizada com sucesso!");
         window.location.href = "ocorrencias.html";
     } else {
+        registrarAtividades(
+            "Cadastro de ocorrência",
+            "Ocorrência cadastrada com sucesso");
+        
         alert("Ocorrência registrada com sucesso!");
         formulario.reset();
     }
@@ -222,10 +298,16 @@ ocorrencias.forEach(function(ocorrencia) {
         const ocorrenciasAtualizadas = obterOcorrencias().filter(function(item) {
             return item.id !== ocorrencia.id;
         });
+       
         const salvou = salvarOcorrencias(ocorrenciasAtualizadas);
         if (salvou) {
+            registrarAtividades(
+                "Exclusão de ocorrência",
+                "Ocorrência excluida com sucesso");
+
             alert("Ocorrência excluída com sucesso!");
             listarOcorrencia();
+            listarAtividades();
         } else {
             alert("Não foi possível excluir a ocorrência.");
         }
@@ -274,3 +356,4 @@ ocorrencias.forEach(function(ocorrencia) {
 // Executa a listagem quando a página é carregada 
 
 listarOcorrencia();
+listarAtividades();
