@@ -112,3 +112,81 @@ if (salvou) {
 
     });
 }
+
+/**
+ * Lista as ocorrências armazenadas no localStorage.
+ * Cria elementos HTML para exibir os dados de cada registro.
+ * Caso não existam ocorrências, informa o usuário.
+ */
+
+function listarOcorrencia(){
+
+// Localiza a área destinada à listagem 
+
+const lista = document.getElementById("listaOcorrencias");
+
+// Verifica se a área existe na página 
+
+if (!lista) {
+    return;
+}
+
+// Recupera as ocorrências armazenadas
+
+const ocorrencias = obterOcorrencias();
+
+// Limpa o conteúdo anterior 
+
+lista.innerHTML ="";
+
+// Verifica se existem registros
+if (ocorrencias.length === 0) {
+    lista.textContent= "Nenhuma ocorrência registrada.";
+    return;
+}
+
+// Percorre os registros e cria a sua exibição
+
+ocorrencias.forEach(function(ocorrencia) {
+    
+    const cartao = document.createElement("article");
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = ocorrencia.titulo;
+
+    const categoria = document.createElement("p");
+    categoria.textContent = "Categoria: " + ocorrencia.categoria;
+
+    const bairro = document.createElement("p");
+    bairro.textContent = "Bairro: " + ocorrencia.bairro;
+
+    const localizacao = document.createElement("p");
+    localizacao.textContent = "Localização: " + ocorrencia.localizacao;
+
+    const descricao = document.createElement("p");
+    descricao.textContent = "Descrição: " + ocorrencia.descricao;
+
+    const status = document.createElement("p");
+    status.textContent = "Status: " + ocorrencia.status;
+
+    const data = document.createElement("p");
+    data.textContent = "Data: " + ocorrencia.data;
+
+    cartao.append(
+        titulo,
+        categoria,
+        bairro,
+        localizacao,
+        descricao,
+        status,
+        data,
+    );
+
+    lista.appendChild(cartao);
+    
+ });
+}
+
+// Executa a listagem quando a página é carregada 
+
+listarOcorrencia();
