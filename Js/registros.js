@@ -47,6 +47,33 @@ function salvarOcorrencias(ocorrencias)
 const formulario =
 document.getElementById("formOcorrencia");
 
+// Verifica se existe um identificador na URL
+
+const parametros = new
+URLSearchParams(window.location.search);
+const idEdicao = parametros.get("id");
+
+// Carrega os dados da ocorrência selecionada
+// para edição
+
+if (formulario && idEdicao) {
+    const ocorrencias = obterOcorrencias();
+
+    const ocorrenciaEditar =
+    ocorrencias.find(function(item) {
+        return item.id === Number(idEdicao);
+    });
+
+    if (ocorrenciaEditar) {
+        document.getElementById("titulo").value = ocorrenciaEditar.titulo;
+        document.getElementById("categoria").value = ocorrenciaEditar.categoria;
+        document.getElementById("bairro").value = ocorrenciaEditar.bairro;
+        document.getElementById("localizacao").value = ocorrenciaEditar.localizacao;
+        document.getElementById("descricao").value = ocorrenciaEditar.descricao;
+    
+    }
+}
+
 // Verifica se o formulário existe
 
 if (formulario) {
@@ -79,38 +106,64 @@ if (!titulo  || !categoria || !bairro || !localizacao || !descricao) {
 
 const ocorrencias = obterOcorrencias();
 
-// Cria um objeto com os dados da ocorrência,
-// incluindo identificador, status inicial e data de registro
+let salvou;
 
-const novaOcorrencia = {
-    id: Date.now(),
-    titulo: titulo,
-    categoria: categoria,
-    bairro: bairro,
-    localizacao: localizacao,
-    descricao: descricao,
-    status: "Registrado",
-    data: new Date().toLocaleString("pt-BR")
-};
+// Verifica se o formulário está em modo de edição
+if (idEdicao) {
 
-// Adiciona a nova ocorrência à lista 
+    // Atualiza os dados da ocorrência selecionada
+    const ocorrenciasAtualizadas = ocorrencias.map(function(item) {
 
-ocorrencias.push(novaOcorrencia);
+        if (item.id === Number(idEdicao)) {
+            return {
+                ...item,
+                titulo: titulo,
+                categoria: categoria,
+                bairro: bairro,
+                localizacao: localizacao,
+                descricao: descricao
+            };
+        }
 
-// Salva a lista atualizada
+        return item;
+    });
 
-const salvou =salvarOcorrencias(ocorrencias);
+    salvou = salvarOcorrencias(ocorrenciasAtualizadas);
+
+} else {
+
+    // Cria uma nova ocorrência
+    const novaOcorrencia = {
+        id: Date.now(),
+        titulo: titulo,
+        categoria: categoria,
+        bairro: bairro,
+        localizacao: localizacao,
+        descricao: descricao,
+        status: "Registrado",
+        data: new Date().toLocaleString("pt-BR")
+    };
+
+    ocorrencias.push(novaOcorrencia);
+
+    salvou = salvarOcorrencias(ocorrencias);
+}
 
 // Verifica se os dados foram salvos corretamente
-
 if (salvou) {
-    alert("Ocorrência registrada com sucesso!");
-    formulario.reset();
+
+    if (idEdicao) {
+        alert("Ocorrência atualizada com sucesso!");
+        window.location.href = "ocorrencias.html";
+    } else {
+        alert("Ocorrência registrada com sucesso!");
+        formulario.reset();
+    }
+
 } else {
     alert("Não foi possível salvar a ocorrência.");
 }
-
-    });
+ });
 }
 
 /**
@@ -148,6 +201,35 @@ if (ocorrencias.length === 0) {
 // Percorre os registros e cria a sua exibição
 
 ocorrencias.forEach(function(ocorrencia) {
+
+    const botaoEditar =
+    document.createElement("button");
+    botaoEditar.textContent = "Editar";
+
+    botaoEditar .addEventListener("click", function() {
+        window.location.href = "registrar.html?id=" + ocorrencia.id;
+    });
+
+    const botaoExcluir = document.createElement("button");
+    botaoExcluir.textContent = "Excluir";
+
+    botaoExcluir.addEventListener("click", function(){
+        const confirmar = confirm("Deseja realmente excluir esta ocorrência?");
+        if (!confirmar) {
+            return;
+        }
+        
+        const ocorrenciasAtualizadas = obterOcorrencias().filter(function(item) {
+            return item.id !== ocorrencia.id;
+        });
+        const salvou = salvarOcorrencias(ocorrenciasAtualizadas);
+        if (salvou) {
+            alert("Ocorrência excluída com sucesso!");
+            listarOcorrencia();
+        } else {
+            alert("Não foi possível excluir a ocorrência.");
+        }
+    });
     
     const cartao = document.createElement("article");
 
@@ -180,6 +262,8 @@ ocorrencias.forEach(function(ocorrencia) {
         descricao,
         status,
         data,
+        botaoEditar,
+        botaoExcluir
     );
 
     lista.appendChild(cartao);
