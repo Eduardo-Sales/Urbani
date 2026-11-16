@@ -17,6 +17,7 @@ body {
 }
 
 /* Cabeçalho e navgação */
+/* Cabeçalho e navegação */
 header {
     background-color: #245c4a;
     color: white;
@@ -24,6 +25,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
 }
 
 nav {
@@ -113,14 +121,29 @@ footer {
 /* Adaptação para celulares */
 @media (max-width: 600px) {
     header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+    
+    header h1 {
+    font-size: 24px !important;
+    margin: 0;
+    line-height: 1.2;
+}
     }
     nav {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px;
     }
+
+    nav a{
+        font-size: 12px;
+    }
+   
     main {
         padding: 15px;
     }
