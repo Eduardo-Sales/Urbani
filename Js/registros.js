@@ -10,7 +10,7 @@ function obterAtividades(){
         const dados = localStorage.getItem("atividades");
 
         return dados ?
-        JSON.parse(dados): [];
+        JSON.parse(dados) : [];
     } catch (erro) {
         console.error("Erro ao recuperar atividades:", erro);
         return [];
@@ -108,6 +108,34 @@ function salvarOcorrencias(ocorrencias)
     }
 }
 
+/**
+ * Exibe mensagens de erro ou sucesso na página de ocorrências.
+ */
+function exibirMensagemOcorrencias(texto, tipo) {
+    const mensagem = document.getElementById("mensagemOcorrencias");
+
+    if (!mensagem) {
+        return;
+    }
+
+    mensagem.textContent = texto;
+    mensagem.className = "mensagem-formulario " + tipo;
+}
+
+/**
+ * Exibe mensagens de erro ou sucesso no formulário.
+ */
+function exibirMensagemFormulario(texto, tipo) {
+    const mensagem = document.getElementById("mensagemFormulario");
+
+    if (!mensagem) {
+        return;
+    }
+
+    mensagem.textContent = texto;
+    mensagem.className = "mensagem-formulario " + tipo;
+}
+
 // CADASTRO DE OCORRÊNCIAS
 
 
@@ -167,10 +195,33 @@ const descricao = document.getElementById("descricao").value.trim();
 // Verifica se todos os campos foram preenchidos
     
 if (!titulo  || !categoria || !bairro || !localizacao || !descricao) {
-        alert("Preencha todos os campos.");
+        exibirMensagemFormulario ("Preencha todos os campos.", "erro");
         return;
    
     } 
+
+// Verifica o limite de caracteres de cada campo
+
+if (titulo.length > 80 || bairro.length > 60 || localizacao.length > 120 || descricao.length > 500
+) {
+    exibirMensagemFormulario("Um ou mais campos ultrapassaram o limite de caracteres.", "erro");
+    return;
+}
+
+// Verifica se a categoria selecionada é válida
+const categoriasValidas = [
+    "Buraco nas vias",
+    "Iluminação pública",
+    "Calçadas danificadas",
+    "Descarte irregular",
+    "Outros"
+];
+
+if (!categoriasValidas.includes(categoria)) {
+    exibirMensagemFormulario("Selecione uma categoria válida.", "erro");
+    return;
+}
+
 // Recupera os registros existentes
 
 const ocorrencias = obterOcorrencias();
@@ -219,25 +270,24 @@ if (idEdicao) {
 }
 
 // Verifica se os dados foram salvos corretamente
-if (salvou) {
-    if (idEdicao) {
-        registrarAtividades(
-            "Edição de ocorrência",
-            "Ocorrência atualizada com sucesso");
+    if (salvou) {
+        if (idEdicao) {
+            registrarAtividades("Edição de ocorrência", "Ocorrência atualizada com sucesso");
 
-        alert("Ocorrência atualizada com sucesso!");
-        window.location.href = "ocorrencias.html";
-    } else {
-        registrarAtividades(
-            "Cadastro de ocorrência",
-            "Ocorrência cadastrada com sucesso");
-        
-        alert("Ocorrência registrada com sucesso!");
-        formulario.reset();
-    }
+            exibirMensagemFormulario("Ocorrência atualizada com sucesso!", "sucesso");
+
+            // Mantém a página aberta para exibir a confirmação
+
+        } else {
+            registrarAtividades("Cadastro de ocorrência", "Ocorrência cadastrada com sucesso");
+
+            exibirMensagemFormulario("Ocorrência registrada com sucesso!", "sucesso");
+
+            formulario.reset();
+        }
 
 } else {
-    alert("Não foi possível salvar a ocorrência.");
+    exibirMensagemFormulario("Não foi possível salvar a ocorrência. Tente novamente.", "erro");
 }
  });
 }
@@ -301,15 +351,12 @@ ocorrencias.forEach(function(ocorrencia) {
        
         const salvou = salvarOcorrencias(ocorrenciasAtualizadas);
         if (salvou) {
-            registrarAtividades(
-                "Exclusão de ocorrência",
-                "Ocorrência excluida com sucesso");
-
-            alert("Ocorrência excluída com sucesso!");
+            registrarAtividades("Exclusão de ocorrência", "Ocorrência excluida com sucesso");
+            exibirMensagemOcorrencias("Ocorrência excluída com sucesso!", "sucesso");
             listarOcorrencia();
             listarAtividades();
         } else {
-            alert("Não foi possível excluir a ocorrência.");
+            exibirMensagemOcorrencias("Não foi possível excluir a ocorrência. Tente novamente.", "erro");
         }
     });
     

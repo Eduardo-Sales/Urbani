@@ -329,3 +329,37 @@ footer {
         font-size: 16px;
     }
 }
+
+/* Aviso de privacidade do formulário */
+.aviso-privacidade {
+    background-color: #e4eee8;
+    padding: 12px;
+    border-left: 4px solid #245c4a;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+/* Mensagens de validação do formulário */
+.mensagem-formulario {
+    display: none;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.mensagem-formulario.erro {
+    display: block;
+    background-color: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #dc3545;
+}
+
+.mensagem-formulario.sucesso {
+    display: block;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-left: 4px solid #198754;
+}

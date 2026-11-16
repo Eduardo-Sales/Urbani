@@ -32,11 +32,11 @@
             para que a comunidade possa acompanhar.
         </p>
 
-        <form id="formOcorrencia">
+        <form id="formOcorrencia" novalidate>
 <!-- Identificação da ocorrência -->
             
             <label for="titulo">Título da ocorrência:</label>
-            <input type ="text" id="titulo" name="titulo" placeholder="Ex.: Buraco na rua" required>
+            <input type ="text" id="titulo" name="titulo" placeholder="Ex.: Buraco na rua" maxlength="80" required>
             <label for="categoria">Categoria</label>
             
             <select id="categoria" name="categoria" required>
@@ -50,18 +50,31 @@
 
 <!-- Localização -->
             <label for="bairro">Bairro:</label>
-            <input type="text" id="bairro" name="bairro" placeholder="Informe o bairro" required>
+            <input type="text" id="bairro" name="bairro" placeholder="Informe o bairro" maxlength="60" required>
             <label for="localizacao">Localização:</label>
-            <input type="text" id="localizacao" name="localizacao" placeholder="Rua, avenida ou ponto de referência" required>
+            <input type="text" id="localizacao" name="localizacao" placeholder="Rua, avenida ou ponto de referência" maxlength="120" required>
 
 <!-- Descrição -->
  
             <label for="descricao">Descrição do problema:</label>
-            <textarea id="descricao" name="descricao" placeholder="Descreva o problema encontrado..." rows="5" required></textarea>
+            <textarea id="descricao" name="descricao" placeholder="Descreva o problema encontrado..." rows="5" maxlength="500" required></textarea>
 
 <!--Botão responsável por enviar o formulário-->
+           <p class="aviso-privacidade">
+                <strong>Aviso de privacidade:</strong>
+                As informações registradas ficam armazenadas apenas
+                neste navegador e não são enviadas à prefeitura.
+                Evite informar dados pessoais ou sensíveis.
+          </p>
+
+           <div id="mensagemFormulario"
+               class="mensagem-formulario"
+               role="status"
+               aria-live="polite">
+           </div>
+
+           <button type="submit">Registrar ocorrência</button>
            
-<button type="submit">Registrar ocorrência</button> 
         </form>
     </section>
  </main>
