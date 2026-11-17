@@ -331,6 +331,7 @@ ocorrencias.forEach(function(ocorrencia) {
     const botaoEditar =
     document.createElement("button");
     botaoEditar.textContent = "Editar";
+    botaoEditar.className = "botao-editar";
 
     botaoEditar .addEventListener("click", function() {
         window.location.href = "registrar.html?id=" + ocorrencia.id;
@@ -338,12 +339,16 @@ ocorrencias.forEach(function(ocorrencia) {
 
     const botaoExcluir = document.createElement("button");
     botaoExcluir.textContent = "Excluir";
+    botaoExcluir.className = "botao-excluir";
 
     botaoExcluir.addEventListener("click", function(){
         const confirmar = confirm("Deseja realmente excluir esta ocorrência?");
         if (!confirmar) {
             return;
         }
+
+        artigo.appendChild(botaoEditar);
+        artigo.appendChild(botaoExcluir);
         
         const ocorrenciasAtualizadas = obterOcorrencias().filter(function(item) {
             return item.id !== ocorrencia.id;
